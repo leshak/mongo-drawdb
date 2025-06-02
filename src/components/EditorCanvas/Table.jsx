@@ -128,25 +128,22 @@ export default function Table(props) {
                   key={tableData.id}
                   content={
                     <div className="popover-theme">
-                      <div className="mb-2">
-                        <strong>{t("comment")}:</strong>{" "}
-                        {tableData.comment === "" ? (
-                          t("not_set")
-                        ) : (
-                          <div>{tableData.comment}</div>
-                        )}
-                      </div>
-                      <div>
-                        <strong
-                          className={`${
-                            tableData.indices.length === 0 ? "" : "block"
-                          }`}
-                        >
-                          {t("indices")}:
-                        </strong>{" "}
-                        {tableData.indices.length === 0 ? (
-                          t("not_set")
-                        ) : (
+                      {tableData.comment !== "" && (
+                        <div className="mb-2">
+                          <div style={{ whiteSpace: "pre-wrap" }}>
+                            {tableData.comment}
+                          </div>
+                        </div>
+                      )}
+                      {tableData.indices.length !== 0 && (
+                        <div>
+                          <strong
+                            className={`${
+                              tableData.indices.length === 0 ? "" : "block"
+                            }`}
+                          >
+                            {t("indices")}:
+                          </strong>{" "}
                           <div>
                             {tableData.indices.map((index, k) => (
                               <div
@@ -168,8 +165,8 @@ export default function Table(props) {
                               </div>
                             ))}
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <Button
                         icon={<IconDeleteStroked />}
                         type="danger"
@@ -249,12 +246,9 @@ export default function Table(props) {
                       <strong>{t("default_value")}: </strong>
                       {e.default === "" ? t("not_set") : e.default}
                     </p> */}
-                    <p>
-                      <strong>{t("comment")}: </strong>
-                      <span style={{ whiteSpace: "pre-wrap" }}>
-                        {e.comment === "" ? "" : e.comment}
-                      </span>
-                    </p>
+                    {e.comment !== "" && (
+                      <p style={{ whiteSpace: "pre-wrap" }}>{e.comment}</p>
+                    )}
                   </div>
                 }
                 position="right"
