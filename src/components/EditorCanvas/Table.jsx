@@ -245,13 +245,15 @@ export default function Table(props) {
                         {t("autoincrement")}
                       </Tag>
                     )}
-                    <p>
+                    {/* <p>
                       <strong>{t("default_value")}: </strong>
                       {e.default === "" ? t("not_set") : e.default}
-                    </p>
+                    </p> */}
                     <p>
                       <strong>{t("comment")}: </strong>
-                      {e.comment === "" ? t("not_set") : e.comment}
+                      <span style={{ whiteSpace: "pre-wrap" }}>
+                        {e.comment === "" ? "" : e.comment}
+                      </span>
                     </p>
                   </div>
                 }
