@@ -34,8 +34,8 @@ export default function DiagramContextProvider({ children }) {
           y: transform.pan.y,
           fields: [
             {
-              name: "id",
-              type: database === DB.GENERIC ? "INT" : "INTEGER",
+              name: "_id",
+              type: "ObjectId",
               default: "",
               check: "",
               primary: true,

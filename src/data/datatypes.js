@@ -20,6 +20,130 @@ const doubleRegex = /^-?\d*.?\d+$/;
 const binaryRegex = /^[01]+$/;
 
 /* eslint-disable no-unused-vars */
+const mongodbTypesBase = {
+  Int: {
+    type: "Int (32)",
+    color: intColor,
+    checkDefault: (field) => {
+      return intRegex.test(field.default);
+    },
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+    canIncrement: true,
+  },
+  String: {
+    type: "String",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+    canIncrement: true,
+  },
+  Double: {
+    type: "Double",
+    color: intColor,
+    checkDefault: (field) => {
+      return doubleRegex.test(field.default);
+    },
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+  Date: {
+    type: "Date",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+  ObjectId: {
+    type: "ObjectId",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+    canIncrement: true,
+  },
+  Long: {
+    type: "Long (64)",
+    color: intColor,
+    checkDefault: (field) => {
+      return intRegex.test(field.default);
+    },
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+    canIncrement: true,
+  },
+  Object: {
+    type: "Object",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+  Array: {
+    type: "Array",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+  Binary: {
+    type: "Binary",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+  Boolean: {
+    type: "Boolean",
+    color: intColor,
+    checkDefault: (field) => {
+      return (
+        field.default.toLowerCase() === "false" ||
+        field.default.toLowerCase() === "true" ||
+        field.default === "0" ||
+        field.default === "1"
+      );
+    },
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+  Null: {
+    type: "Null",
+    color: intColor,
+    checkDefault: (field) => true,
+    hasCheck: false,
+    isSized: false,
+    hasPrecision: false,
+    noDefault: true,
+  },
+};
+
+export const mongodbTypes = new Proxy(mongodbTypesBase, {
+  get: (target, prop) => (prop in target ? target[prop] : false),
+});
+
+/* eslint-disable no-unused-vars */
 const defaultTypesBase = {
   INT: {
     type: "INT",
@@ -2242,6 +2366,7 @@ export const mariadbTypes = new Proxy(
 
 const dbToTypesBase = {
   [DB.GENERIC]: defaultTypes,
+  [DB.MONGODB]: mongodbTypes,
   [DB.MYSQL]: mysqlTypes,
   [DB.POSTGRES]: postgresTypes,
   [DB.SQLITE]: sqliteTypes,
